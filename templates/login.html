@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Login | SkillSwap{% endblock %}
+
+{% block extra_css %}
+<style>
+  .login-card {
+    background-color: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  .form-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+  }
+
+  .btn-outline-success {
+    margin-left: 8px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="login-card">
+        <h2 class="mb-4 text-center text-primary">
+          <i class="fas fa-sign-in-alt me-2"></i>Welcome Back!
+        </h2>
+
+        <form method="POST">
+          {% csrf_token %}
+          {% for fm in form %}
+            <div class="mb-3">
+              {{ fm.label_tag }}
+              {{ fm }}
+              {% if fm.errors %}
+                <small class="text-danger">{{ fm.errors|striptags}}</small>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-sign-in-alt me-1"></i> Login
+            </button>
+          </div>
+        </form>
+
+        <div class="form-footer">
+          <span>Don't have an account?</span>
+          <a href="{% url 'register' %}" class="btn btn-outline-success btn-sm">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

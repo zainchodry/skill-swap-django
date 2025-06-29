@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | SkillSwap{% endblock %}
+
+{% block content %}
+<div class="row">
+  <!-- Skill Offers Section -->
+  <div class="col-lg-6 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="section-title mb-0">🎯 Available Skill Offers</h2>
+      <a class="btn btn-success" href="{% url 'create_offer' %}">
+        <i class="fas fa-plus-circle"></i> Add Offer
+      </a>
+    </div>
+
+    {% if offers %}
+      <div class="list-group shadow-sm">
+        {% for offer in offers %}
+          <div class="list-group-item list-group-item-action mb-2 rounded border">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+              <h5 class="mb-1">
+                <i class="fas fa-handshake text-success me-2"></i>
+                <strong>{{ offer.user.username }}</strong> offers 
+                <span class="badge bg-success">{{ offer.skill.name }}</span>
+              </h5>
+              <small class="text-muted">{{ offer.available_time }}</small>
+            </div>
+            <p class="mb-1">{{ offer.description }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info">No offers available.</div>
+    {% endif %}
+  </div>
+
+  <!-- Skill Requests Section -->
+  <div class="col-lg-6 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="section-title mb-0">🆘 Open Skill Requests</h2>
+      <a class="btn btn-primary" href="{% url 'create_request' %}">
+        <i class="fas fa-plus-circle"></i> Add Request
+      </a>
+    </div>
+
+    {% if requests %}
+      <div class="list-group shadow-sm">
+        {% for req in requests %}
+          <div class="list-group-item list-group-item-action mb-2 rounded border">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+              <h5 class="mb-1">
+                <i class="fas fa-user-clock text-primary me-2"></i>
+                <strong>{{ req.requester.username }}</strong> needs 
+                <span class="badge bg-primary">{{ req.skill.name }}</span>
+              </h5>
+            </div>
+            <p class="mb-1">{{ req.description }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info">No requests available.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

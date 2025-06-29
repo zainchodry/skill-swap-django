@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Offer a Skill | SkillSwap{% endblock %}
+
+{% block extra_css %}
+<style>
+  .form-card {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 2rem;
+  }
+
+  .form-title {
+    font-weight: 600;
+    color: #198754;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+  }
+
+  .btn-submit {
+    background-color: #198754;
+    color: #fff;
+    font-weight: 500;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-submit:hover {
+    background-color: #157347;
+  }
+
+  .text-danger {
+    font-size: 0.875rem;
+  }
+
+  .form-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="form-card">
+      <h2 class="form-title">
+        <i class="fas fa-hands-helping me-2"></i>Offer a Skill
+      </h2>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+              <div class="form-text">{{ field.help_text }}</div>
+            {% endif %}
+            {% for error in field.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-submit">
+            <i class="fas fa-paper-plane me-1"></i> Submit Offer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

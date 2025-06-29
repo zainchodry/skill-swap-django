@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Register | SkillSwap{% endblock %}
+
+{% block extra_css %}
+<style>
+  .register-card {
+    background-color: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    font-weight: 500;
+  }
+
+  .form-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+  }
+
+  .btn-outline-info {
+    margin-left: 8px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="register-card">
+        <h2 class="mb-4 text-center text-primary">
+          <i class="fas fa-user-plus me-2"></i> Create Your Account
+        </h2>
+
+        <form method="POST">
+          {% csrf_token %}
+          {% for fm in form %}
+            <div class="mb-3">
+              {{ fm.label_tag }}
+              {{ fm }}
+              {% if fm.errors %}
+                <small class="text-danger">{{ fm.errors|striptags }}</small>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+
+        <div class="form-footer">
+          <span>Already have an account?</span>
+          <a href="{% url 'login' %}" class="btn btn-outline-info btn-sm">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
